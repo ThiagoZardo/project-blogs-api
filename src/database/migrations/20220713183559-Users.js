@@ -11,19 +11,19 @@ module.exports = {
       },
       displayName: {
         allowNull: false,
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING,
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING,
       },
       password: {
         allowNull: false,
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING,
       },
       image: {
         allowNull: false,
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING,
       }
     });
     return Users;
