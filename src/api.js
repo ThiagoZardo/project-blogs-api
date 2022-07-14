@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/user', validateToken.validateToken, controllerUser.listUsers);
+app.get('/user/:id', validateToken.validateToken, controllerUser.findById);
 app.post('/login', middlewares.validateLogin, controllerLogin.login);
 app.post('/user', middlewares.validateUser, controllerUser.createUser);
 

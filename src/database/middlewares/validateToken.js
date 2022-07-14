@@ -13,7 +13,7 @@ const validateToken = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const verifyTokeValidate = await verifyToken(token);
+    const verifyTokeValidate = verifyToken(token);
     if (verifyTokeValidate) next();
   } catch (error) {
     console.log(error.message);
