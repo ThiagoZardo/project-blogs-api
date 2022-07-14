@@ -1,12 +1,12 @@
 const express = require('express');
 const middlewares = require('./database/middlewares/verifyUser');
 const validateToken = require('./database/middlewares/validateToken');
-const validatePost = require('./database/middlewares/validatePost');
+// const validatePost = require('./database/middlewares/validatePost');
 
 const controllerLogin = require('./database/controllers/ControllerLogin');
 const controllerUser = require('./database/controllers/ControlerUser');
 const controllerCategory = require('./database/controllers/ControllerCategory');
-const controllerPost = require('./database/controllers/ControllerPost');
+// const controllerPost = require('./database/controllers/ControllerPost');
 
 const app = express();
 
