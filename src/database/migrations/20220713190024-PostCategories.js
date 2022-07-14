@@ -24,14 +24,10 @@ module.exports = {
         onUpgrade: 'CASCADE',
       },
     });
+    return PostCategories;
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    await PostCategories.dropTable('PostCategories')
   }
 };
