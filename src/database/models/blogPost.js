@@ -17,11 +17,11 @@ module.exports = (sequelize, Datatypes) => {
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
       foreignKey: 'id',
-      as: 'user', 
+      as: 'blogPost', 
     });
     // BlogPost.hasMany(models.PostsCategory, {
     //   foreignKey: 'postId',
-    //   as: 'user', 
+    //   as: 'blogPost', 
     // });
   };
   return BlogPost;
