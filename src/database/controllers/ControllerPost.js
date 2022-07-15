@@ -8,6 +8,13 @@ const createPost = async (req, res) => {
   return res.status(201).json(newPost);
 };
 
+const listAll = async (req, res) => {
+  const token = req.headers.authorization;
+  const posts = await services.listAll(token);
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   createPost,
+  listAll,
 };

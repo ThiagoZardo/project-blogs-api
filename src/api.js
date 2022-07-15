@@ -21,6 +21,7 @@ app.post('/user', middlewares.validateUser, controllerUser.createUser);
 app.post('/categories', validateToken.validateToken, controllerCategory.createCategory);
 app.get('/categories', validateToken.validateToken, controllerCategory.listCategories);
 
+app.get('/post', validateToken.validateToken, controllerPost.listAll);
 app.post('/post',
   validateToken.validateToken,
   validatePost.validatePost,

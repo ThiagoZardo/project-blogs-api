@@ -12,7 +12,7 @@ module.exports = (sequelize, Datatypes) => {
 
   PostCategory.associate = (models) => {
     models.BlogPost.belongsToMany(models.Category, {
-      as: 'category',
+      as: 'categories',
       through: PostCategory,
       foreignKey: 'postId',
       otherKey: 'categoryId',
@@ -26,5 +26,3 @@ module.exports = (sequelize, Datatypes) => {
   };
   return PostCategory;
 };
-
-// blogpost e categorie
