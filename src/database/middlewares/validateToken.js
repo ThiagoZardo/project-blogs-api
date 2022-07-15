@@ -34,4 +34,5 @@ const generateToken = async (email) => {
 module.exports = {
   validateToken,
   generateToken,
+  verifyToken,
 };
