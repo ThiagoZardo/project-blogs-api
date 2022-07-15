@@ -32,10 +32,24 @@ const createPost = async ({ title, content, categoryIds, token }) => {
   return false;
 };
 
-const listAll = async (token) => {
-  const emailUser = await verifyToken(token).data;
-  console.log(emailUser);
+const listAll = async () => {
   const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { 
+        model: Category,
+        as: 'categories',
+        attributes: { exclude: 'PostCategory' },
+        through: { attributes: [] },
+      },
+    ],
+  });
+  return posts;
+};
+
+const findById = async (id) => {
+  const [posts] = await BlogPost.findAll({
+    where: { id },
     include: [
       { model: User, as: 'user', attributes: { exclude: 'password' } },
       { 
@@ -52,4 +66,5 @@ const listAll = async (token) => {
 module.exports = {
   createPost,
   listAll,
+  findById,
 };

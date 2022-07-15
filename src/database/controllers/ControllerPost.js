@@ -9,12 +9,19 @@ const createPost = async (req, res) => {
 };
 
 const listAll = async (req, res) => {
-  const token = req.headers.authorization;
-  const posts = await services.listAll(token);
+  const posts = await services.listAll();
+  return res.status(200).json(posts);
+};
+
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const posts = await services.findById(id);
+  if (!posts) return res.status(404).json({ message: 'Post does not exist' });
   return res.status(200).json(posts);
 };
 
 module.exports = {
   createPost,
   listAll,
+  findById,
 };
