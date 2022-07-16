@@ -20,8 +20,18 @@ const findById = async (req, res) => {
   return res.status(200).json(posts);
 };
 
+const updatedPost = async (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const newPost = await services.updatedPost({ title, content }, token, id);
+  if (!newPost) return res.status(401).json({ message: 'Unauthorized user' });
+  return res.status(200).json(newPost);
+};
+
 module.exports = {
   createPost,
   listAll,
   findById,
+  updatedPost,
 };

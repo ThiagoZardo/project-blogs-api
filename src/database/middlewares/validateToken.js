@@ -23,7 +23,7 @@ const validateToken = async (req, res, next) => {
 
 const generateToken = async (email) => {
   const jwtConfig = {
-    expiresIn: '5h',
+    expiresIn: '12h',
     algorithm: 'HS256',
   };
 

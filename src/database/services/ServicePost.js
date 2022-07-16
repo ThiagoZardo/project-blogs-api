@@ -63,8 +63,30 @@ const findById = async (id) => {
   return posts;
 };
 
+const updatedPost = async ({ title, content }, token, idPost) => {
+  const emailUser = await verifyToken(token).data;
+  const user = await User.findOne(
+    { where: { email: emailUser } },
+  );
+  const userId = user.id;
+
+  const post = await BlogPost.findOne(
+    { where: { id: idPost } },
+  );
+  if (post.id !== idPost) {
+    return false;
+  }
+  await BlogPost.update(
+    { title, content },
+    { where: { userId } },
+  );
+  const newPost = await findById(idPost);
+  return newPost;
+};
+
 module.exports = {
   createPost,
   listAll,
   findById,
+  updatedPost,
 };

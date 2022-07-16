@@ -16,7 +16,6 @@ const createUser = async (user) => {
 
 const listUsers = async () => {
   const users = await User.findAll({ attributes: { exclude: 'password' } });
-  console.log(users);
   return users;
 };
 
