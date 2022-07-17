@@ -4,7 +4,6 @@ const { JWT_SECRET } = process.env;
 
 const verifyToken = (token) => {
   const validate = jwt.verify(token, JWT_SECRET);
-  console.log(validate);
   return validate;
 };
 
