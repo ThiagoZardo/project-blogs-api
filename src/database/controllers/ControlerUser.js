@@ -18,8 +18,14 @@ const findById = async (req, res) => {
   return res.status(200).json(user[0].dataValues);
 };
 
+const deleteAccount = async (req, res) => {
+  await services.deleteAccount(req.userId);
+  res.status(204).end();
+};
+
 module.exports = {
   createUser,
   listUsers,
   findById,
+  deleteAccount,
 };
