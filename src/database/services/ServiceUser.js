@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { generateToken } = require('../middlewares/validateToken');
+const { generateToken } = require('../utils/jws');
 
 const createUser = async (user) => {
   const { displayName, email, password, image } = user;
@@ -14,12 +14,12 @@ const createUser = async (user) => {
   return false;
 };
 
-const listUsers = async () => {
+const listUsers = async (_userId) => {
   const users = await User.findAll({ attributes: { exclude: 'password' } });
   return users;
 };
 
-const findById = async (id) => {
+const findById = async (id, _userId) => {
   const user = await User.findAll({
     where: { id },
     attributes: { include: 'id', exclude: 'password' },

@@ -1,6 +1,6 @@
 const express = require('express');
 const middlewares = require('./database/middlewares/verifyUser');
-const validateToken = require('./database/middlewares/validateToken');
+const { middlewareValidateToken } = require('./database/middlewares/validateToken');
 const validatePost = require('./database/middlewares/validatePost');
 
 const controllerLogin = require('./database/controllers/ControllerLogin');
@@ -14,27 +14,29 @@ app.use(express.json());
 
 app.post('/login', middlewares.validateLogin, controllerLogin.login);
 
-app.get('/user', validateToken.validateToken, controllerUser.listUsers);
-app.get('/user/:id', validateToken.validateToken, controllerUser.findById);
+app.get('/user', middlewareValidateToken, controllerUser.listUsers);
+app.get('/user/:id', middlewareValidateToken, controllerUser.findById);
 app.post('/user', middlewares.validateUser, controllerUser.createUser);
 
-app.post('/categories', validateToken.validateToken, controllerCategory.createCategory);
-app.get('/categories', validateToken.validateToken, controllerCategory.listCategories);
+app.post('/categories', middlewareValidateToken, controllerCategory.createCategory);
+app.get('/categories', middlewareValidateToken, controllerCategory.listCategories);
 
-app.get('/post/:id', validateToken.validateToken, controllerPost.findById);
+app.get('/post/:id', middlewareValidateToken, controllerPost.findById);
 app.put('/post/:id',
-  validateToken.validateToken,
+  middlewareValidateToken,
   validatePost.validateUpdatePost,
   controllerPost.updatedPost);
 
 app.get('/post',
-  validateToken.validateToken,
+  middlewareValidateToken,
   controllerPost.listAll);
 
 app.post('/post',
-  validateToken.validateToken,
+  middlewareValidateToken,
   validatePost.validatePost,
   controllerPost.createPost);
+
+app.delete('/post/:id', middlewareValidateToken, controllerPost.deletePost);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

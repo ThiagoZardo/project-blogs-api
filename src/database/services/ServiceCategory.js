@@ -1,6 +1,6 @@
 const { Category } = require('../models');
 
-const createCategory = async (name) => {
+const createCategory = async (name, _userId) => {
   const newCategory = await Category.create({ name });
   return {
     id: newCategory.id,
@@ -8,7 +8,7 @@ const createCategory = async (name) => {
   };
 };
 
-const listCategories = async () => {
+const listCategories = async (_userId) => {
   const categories = await Category.findAll();
   return categories;
 };

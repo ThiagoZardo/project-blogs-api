@@ -3,7 +3,7 @@ const services = require('../services/ServicePost');
 const createPost = async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const token = req.headers.authorization;
-  const newPost = await services.createPost({ title, content, categoryIds, token });
+  const newPost = await services.createPost({ title, content, categoryIds, token }, req.userId);
   if (!newPost) return res.status(400).json({ message: '"categoryIds" not found' });
   return res.status(201).json(newPost);
 };
@@ -15,7 +15,7 @@ const listAll = async (req, res) => {
 
 const findById = async (req, res) => {
   const { id } = req.params;
-  const posts = await services.findById(id);
+  const posts = await services.findById(id, req.userId);
   if (!posts) return res.status(404).json({ message: 'Post does not exist' });
   return res.status(200).json(posts);
 };
@@ -23,10 +23,17 @@ const findById = async (req, res) => {
 const updatedPost = async (req, res) => {
   const { title, content } = req.body;
   const { id } = req.params;
-  const token = req.headers.authorization;
-  const newPost = await services.updatedPost({ title, content }, token, id);
+  const newPost = await services.updatedPost({ title, content }, id, req.userId);
   if (!newPost) return res.status(401).json({ message: 'Unauthorized user' });
   return res.status(200).json(newPost);
+};
+
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const delPost = await services.deletePost(id, req.userId);
+  if (delPost === 'Post does not exist') return res.status(404).json({ message: delPost });
+  if (delPost === 'Unauthorized user') return res.status(401).json({ message: delPost });
+  return res.status(204).end();
 };
 
 module.exports = {
@@ -34,4 +41,5 @@ module.exports = {
   listAll,
   findById,
   updatedPost,
+  deletePost,
 };

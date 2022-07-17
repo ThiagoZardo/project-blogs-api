@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { generateToken } = require('../middlewares/validateToken');
+const { generateToken } = require('../utils/jws');
 
 const login = async (email, password) => {
   const userExist = await User.findOne({ where: { email, password } });
