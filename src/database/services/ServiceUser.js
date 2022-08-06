@@ -5,7 +5,8 @@ const createUser = async (user) => {
   const { displayName, email, password, image } = user;
   const userExist = await User.findOne({ where: { email } });
   if (!userExist) {
-    await User.create({ displayName, email, password, image });
+    const userResult = await User.create({ displayName, email, password, image });
+    console.log(userResult);
     const token = await generateToken(email);
       return {
         token,

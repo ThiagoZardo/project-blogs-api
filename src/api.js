@@ -3,6 +3,7 @@ const users = require('./database/routes/users');
 const login = require('./database/routes/login');
 const categories = require('./database/routes/categories');
 const posts = require('./database/routes/posts');
+const errorMidleware = require('./database/middlewares/errorMidleware');
 
 const app = express();
 
@@ -12,6 +13,8 @@ app.use('/user', users);
 app.use('/login', login);
 app.use('/categories', categories);
 app.use('/post', posts);
+
+app.use(errorMidleware);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

@@ -1,11 +1,15 @@
 const services = require('../services/ServicePost');
 
-const createPost = async (req, res) => {
-  const { title, content, categoryIds } = req.body;
-  const token = req.headers.authorization;
-  const newPost = await services.createPost({ title, content, categoryIds, token }, req.userId);
-  if (!newPost) return res.status(400).json({ message: '"categoryIds" not found' });
-  return res.status(201).json(newPost);
+const createPost = async (req, res, next) => {
+  try {
+    const { title, content, categoryIds } = req.body;
+    const token = req.headers.authorization;
+    const newPost = await services.createPost({ title, content, categoryIds, token }, req.userId);
+    if (!newPost) return res.status(400).json({ message: '"categoryIds" not found' });
+    return res.status(201).json(newPost);
+  } catch (error) {
+    return next(error);
+  }
 };
 
 const listAll = async (req, res) => {
